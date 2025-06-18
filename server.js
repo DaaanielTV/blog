@@ -7,11 +7,10 @@ const app = express();
 const PORT = 10007;
 
 // Serve static files from public directory with proper MIME types
-app.use(express.static('public', {
-    setHeaders: (res, path) => {
-        if (path.endsWith('.css')) {
-            res.setHeader('Content-Type', 'text/css');
-        }
+app.use(express.static('public'));
+app.use('/css', express.static(path.join(__dirname, 'public/css'), {
+    setHeaders: (res, _path) => {
+        res.setHeader('Content-Type', 'text/css');
     }
 }));
 
