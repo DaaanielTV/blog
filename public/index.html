@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Modern Blog</h1>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="active">Home</a>
+                <a href="/articles">Articles</a>
+                <a href="/admin">Admin</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Modern Blog</h1>
+                <p>Discover interesting stories and insights</p>
+            </div>
+        </section>
+
+        <section class="featured">
+            <h2>Featured Articles</h2>
+            <div class="articles-grid" id="featured-articles">
+                <!-- Articles will be loaded dynamically -->
+            </div>
+        </section>
+
+        <section class="articles">
+            <div class="articles-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="technology">Technology</button>
+                <button class="filter-btn" data-category="lifestyle">Lifestyle</button>
+                <button class="filter-btn" data-category="travel">Travel</button>
+            </div>
+            <div class="articles-grid" id="articles-container">
+                <!-- Articles will be loaded dynamically -->
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Search articles...">
+            </div>
+            <div class="categories">
+                <h3>Categories</h3>
+                <!-- Categories will be loaded dynamically -->
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Modern Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
