@@ -1,53 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Sample blog posts data (in a real app, this would come from an API)
-    const posts = [
-        {
-            id: 1,
-            title: 'Getting Started with Node.js',
-            excerpt: 'Learn the basics of Node.js and start building server-side applications...',
-            image: 'https://picsum.photos/id/1/800/400',
-            date: '2025-06-18'
-        },
-        {
-            id: 2,
-            title: 'Modern Web Design Trends',
-            excerpt: 'Explore the latest trends in web design and how to implement them...',
-            image: 'https://picsum.photos/id/2/800/400',
-            date: '2025-06-17'
-        },
-        // Add more sample posts here
-    ];
-
+document.addEventListener('DOMContentLoaded', async function() {
     // DOM Elements
     const articlesContainer = document.getElementById('articles-container');
 
     // Functions
-    function createArticleCard(post) {
+    function createArticleCard(article) {
         return `
             <article class="article-card">
-                <img src="${post.image}" alt="${post.title}">
+                <img src="${article.image}" alt="${article.title}">
                 <div class="article-card-content">
-                    <h3>${post.title}</h3>
-                    <p>${post.excerpt}</p>
+                    <h3>${article.title}</h3>
+                    <p>${article.content}</p>
                     <div class="article-meta">
-                        <span>${post.date}</span>
+                        <span>${article.date}</span>
                     </div>
                 </div>
             </article>
         `;
     }
 
-    function displayPosts() {
-        // Sort posts by date in descending order (newest first)
-        const sortedPosts = [...posts].sort((a, b) => 
-            new Date(b.date) - new Date(a.date)
-        );
-        
-        articlesContainer.innerHTML = sortedPosts
-            .map(post => createArticleCard(post))
-            .join('');
+    async function loadArticles() {
+        try {
+            // Fetch the list of article files
+            const response = await fetch('/content/articles/');
+            const files = await response.json();
+            
+            // Fetch each article's content
+            const articlePromises = files.map(file => 
+                fetch(`/content/articles/${file}`).then(res => res.json())
+            );
+            
+            const articles = await Promise.all(articlePromises);
+            
+            // Sort articles by date in descending order (newest first)
+            const sortedArticles = articles.sort((a, b) => 
+                new Date(b.date) - new Date(a.date)
+            );
+            
+            // Display the articles
+            articlesContainer.innerHTML = sortedArticles
+                .map(article => createArticleCard(article))
+                .join('');
+        } catch (error) {
+            console.error('Error loading articles:', error);
+            articlesContainer.innerHTML = '<p>Error loading articles. Please try again later.</p>';
+        }
     }
 
-    // Initial display
-    displayPosts();
+    // Initial load
+    loadArticles();
 });
