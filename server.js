@@ -6,8 +6,14 @@ const fs = require('fs').promises;
 const app = express();
 const PORT = 10007;
 
-// Serve static files from public directory
-app.use(express.static('public'));
+// Serve static files from public directory with proper MIME types
+app.use(express.static('public', {
+    setHeaders: (res, path) => {
+        if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        }
+    }
+}));
 
 // Create articles directory if it doesn't exist
 async function ensureArticlesDirectory() {
