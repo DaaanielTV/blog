@@ -9,12 +9,12 @@ const PORT = 10007;
 app.use(express.static('public'));
 
 // Serve index.html as the main page
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // For admin routes
-app.get('/admin', (req, res) => {
+app.get('/admin', (_req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 
